@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/404.css}">
+        <script th:src="@{/js/404.js}"></script>
+    </head>
+    <body>
+    <h1>Website not found</h1>
+    <section class="error-container">
+        <span class="four"><span class="screen-reader-text">4</span></span>
+        <span class="zero"><span class="screen-reader-text">0</span></span>
+        <span class="four"><span class="screen-reader-text">4</span></span>
+    </section>
+    <div class="link-container">
+        <a th:href="@{/}" class="more-link">Go back to Homepage</a>
+    </div>
+    </body>
+</html>

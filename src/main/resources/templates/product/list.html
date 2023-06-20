@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Product List</title>
+  <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Danh sách sản phẩm</h1>
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>Product name</th>
+      <th>Price</th>
+      <th>Image</th>
+      <th>Category</th>
+      <th>Action</th>
+    </tr>
+      <tr th:each="product: ${products}">
+      <td th:text="${product.id}"></td>
+      <td th:text="${product.productname}"></td>
+      <td th:text="${product.price}"></td>
+      <td>
+        <img th:src="@{'/images/' + ${product.image}}" alt="Product Image" style="max-width: 200px; max-height: 200px;">
+      </td>
+      <td th:text="${product.category.name}"></td>
+      <td sec:authorize="hasAnyAuthority('ADMIN')">
+        <a th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a> |
+        <a th:href="@{/products/delete/{id}(id=${product.id})}"
+           onclick="return confirm ('Are you sure?')">Delete</a>
+      </td>
+        <td>
+          <span sec:authorize="hasAuthority('USER')">
+            <form th:action="@{'/cart/add/' + ${product.id}}" method="post">
+              <button type="submit" class="btn btn-secondary">Buy</button>
+            </form>
+          </span>
+        </td>
+    </tr>
+  </table>
+<!--  HTML PAGE -->
+  <nav aria-label="Page navigation example" th:if="${totalPages > 1}">
+    <ul class="pagination">
+      <li class="page-item" th:class="${products.hasPrevious() ? '' : 'disabled'}">
+        <a class="page-link" th:href="@{/products(page=${products.number - 1})}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item" th:each="page : ${#numbers.sequence(0, totalPages - 1)}"
+          th:class="${products.number == page ? 'active' : ''}">
+        <a class="page-link" th:href="@{/products(page=${page})}" th:text="${page + 1}"></a>
+      </li>
+      <li class="page-item" th:class="${products.hasNext() ? '' : 'disabled'}">
+        <a class="page-link" th:href="@{/products(page=${products.number + 1})}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>
