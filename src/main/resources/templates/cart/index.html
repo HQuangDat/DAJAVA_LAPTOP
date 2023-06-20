@@ -58,6 +58,9 @@
       <a th:href="@{/cart}" class="navbar-brand"> Cart(<span
               th:text="${session.cartCount}"></span>)</a>
     </div>
+    <form th:action="@{/}">
+      <button type="submit" class="btn btn-success">Go to homepage</button>
+    </form>
   </div>
 </body>
 </html>

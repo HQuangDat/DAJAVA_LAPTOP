@@ -36,11 +36,6 @@
           <li sec:authorize="!isAuthenticated()">
             <a class="btn btn-outline-primary" href="/login">Login</a>
           </li>
-          <li sec:authorize="hasAnyAuthority('USER')">
-            <form th:action="@{/cart}" method="get">
-              <button class="btn btn-outline-danger" type="submit">Giỏ hàng</button>
-            </form>
-          </li>
           <li sec:authorize="isAuthenticated()">
             <form class="form-inline d-flex"
                   th:action="${'/products/search'}" method="get">

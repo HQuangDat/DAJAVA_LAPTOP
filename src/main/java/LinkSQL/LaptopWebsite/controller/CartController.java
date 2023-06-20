@@ -65,4 +65,11 @@ public class CartController {
         cartService.orderCart(findUser);
         return "/cart/order";
     }
+
+    @PostMapping("/remove/{id}")
+    public String removeFromCart(@PathVariable("id") Long productId) {
+        cartService.removeFromCart(productId);
+        return "redirect:/cart";
+    }
+
 }
