@@ -63,7 +63,7 @@ public class CartController {
         User user = (User) authentication.getPrincipal();
         LinkSQL.LaptopWebsite.model.User findUser = userRepository.findByUsername(user.getUsername());
         cartService.orderCart(findUser);
-        return "/cart/order";
+        return "/cart/order.html";
     }
 
     @PostMapping("/remove/{id}")

@@ -37,12 +37,11 @@
             <a class="btn btn-outline-primary" href="/login">Login</a>
           </li>
           <li sec:authorize="isAuthenticated()">
-            <form class="form-inline d-flex"
-                  th:action="${'/products/search'}" method="get">
-              <input class="form-control flex-grow-1" type="search" placeholder="Search" aria-label="Search" name="key">
-              <button class="btn btn-outline-success flex-grow-1" type="submit">Search</button>
+            <form class="form-inline d-flex" th:action="${'/products/search'}" method="get">
+                <input class="form-control flex-grow-1" type="search" placeholder="Search" aria-label="Search" name="key">
+                <button class="btn btn-outline-success flex-grow-1" type="submit">Search</button>
             </form>
-          </li>
+          </li>             
         </ul>
       </div>
     </div>

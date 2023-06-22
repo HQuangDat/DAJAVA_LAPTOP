@@ -37,10 +37,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers( "/css/**", "/js/**", "/", "/register", "/templates/error")
                         .permitAll()
-                        .requestMatchers( "/products/edit", "/products/delete")
+                        .requestMatchers( "/products/edit", "/products/delete","/products/add")
                         .hasAnyAuthority("ADMIN")
-                        .requestMatchers("/products", "/products/add")
-                        .hasAnyAuthority("ADMIN","USER")
+                        .requestMatchers("/products")
+                        .permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/logout")

@@ -32,17 +32,6 @@ public class ProductController {
     }
 
 
-//    @GetMapping
-//    public String index(Model model,
-//                        @RequestParam(defaultValue = "0") int page,
-//                        @RequestParam(defaultValue = "2") int size)
-//    {
-//        Page<Product> products = productService.GetAll(page, size);
-//        model.addAttribute("listproduct", products);
-//        model.addAttribute("totalPages", products.getTotalPages());
-//        return "product/list";
-//    }
-
     @GetMapping("/add")
     public String addProductForm(Model model){
         model.addAttribute("product",new Product());
