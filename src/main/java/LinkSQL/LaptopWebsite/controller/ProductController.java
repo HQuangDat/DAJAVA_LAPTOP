@@ -31,21 +31,21 @@ public class ProductController {
         return "product/list";
     }
 
-
     @GetMapping("/add")
-    public String addProductForm(Model model){
-        model.addAttribute("product",new Product());
-        model.addAttribute("categories",categoryService.getAllCategories());
+    public String addProductForm(Model model) {
+        model.addAttribute("product", new Product());
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "product/add";
     }
 
     @PostMapping("/add")
-    public String addProduct(@ModelAttribute("product") Product product){
+    public String addProduct(@ModelAttribute("product") Product product) {
         productService.addProduct(product);
         return "redirect:/products";
     }
 
-    //Lấy thông tin của một product dựa vào ID và đồng thời lấy tất cả loại máy dùng cho việc edit
+    // Lấy thông tin của một product dựa vào ID và đồng thời lấy tất cả loại máy
+    // dùng cho việc edit
     @GetMapping("/edit/{id}")
     public String editProductForm(@PathVariable("id") Long id, Model model) {
         Optional<Product> editProduct = Optional.ofNullable(productService.getProductById(id));
@@ -60,7 +60,6 @@ public class ProductController {
         }
     }
 
-
     @PostMapping("/edit")
     public String editProduct(@ModelAttribute("product") Product product) {
         productService.updateProduct(product);
@@ -73,12 +72,11 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    //Search
+    // Search
     @GetMapping("/search")
     public String searchProducts(Model model, @RequestParam String key,
-                                 @RequestParam(defaultValue = "0") int pageNo,
-                                 @RequestParam(defaultValue = "2") int pageSize)
-    {
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "2") int pageSize) {
         Page<Product> products = productService.GetSearchProducts(key,
                 pageNo, pageSize);
         int totalPages = products.getTotalPages();
@@ -91,6 +89,15 @@ public class ProductController {
         return "product/list";
     }
 
-
-
+    @GetMapping("/detail/{id}")
+    public String productDetails(@PathVariable("id") Long id, Model model) {
+        Product product = productService.getProductById(id);
+        if (product != null) {
+            model.addAttribute("product", product);
+            model.addAttribute("categories", categoryService.getAllCategories());
+            return "product/detail";
+        } else {
+            return "404";
+        }
+    }
 }

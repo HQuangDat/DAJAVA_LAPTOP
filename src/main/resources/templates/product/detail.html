@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Product Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            margin: 0 auto;
+            background-color: #fff;
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Details</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <tr th:object="${product}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.productname}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <img th:src="@{'/images/' + ${product.image}}" alt="Product Image">
+            </td>
+            <td th:text="${product.category.name}"></td>
+            <td>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis unde optio natus expedita, beatae fuga sequi eos id ipsa magnam magni, praesentium, voluptate dignissimos porro adipisci asperiores libero quasi distinctio.
+            </td>
+            <td>
+                <span sec:authorize="hasAuthority('USER')">
+                  <form th:action="@{'/cart/add/' + ${product.id}}" method="post">
+                    <button type="submit" class="btn btn-secondary">Buy</button>
+                  </form>
+                  <form th:action="@{/products}">
+                    <button type="submit" class="btn btn-success">Go to products</button>
+                  </form>
+                </span>
+                <span sec:authorize="hasAuthority('ADMIN')">
+                    <form th:action="@{/products}">
+                      <button type="submit" class="btn btn-secondary">Back to products</button>
+                    </form>
+                </span>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

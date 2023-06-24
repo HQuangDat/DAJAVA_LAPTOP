@@ -30,11 +30,15 @@
         <a th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a> |
         <a th:href="@{/products/delete/{id}(id=${product.id})}"
            onclick="return confirm ('Are you sure?')">Delete</a>
+        <a th:href="@{/products/detail/{id}(id=${product.id})}">Details</a> |   
       </td>
         <td>
           <span sec:authorize="hasAuthority('USER')">
             <form th:action="@{'/cart/add/' + ${product.id}}" method="post">
               <button type="submit" class="btn btn-secondary">Buy</button>
+            </form>
+            <form th:action="@{/products/detail/{id}(id=${product.id})}" method="get">
+              <button type="submit" class="btn btn-secondary">Details</button>
             </form>
           </span>
         </td>
